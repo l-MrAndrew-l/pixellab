@@ -143,33 +143,140 @@ function JoinButton({ onClick }) {
 }
 
 function JoinModal({ onClose }) {
-  function submitApplication(event) {
+  const [isSending, setIsSending] = useState(false)
+  const [status, setStatus] = useState('')
+
+  async function submitApplication(event) {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const subject = encodeURIComponent('Заявка до гуртка PixelLab')
-    const body = encodeURIComponent(
-      `Заявка до гуртка PixelLab\n\nПІБ: ${data.get('name')}\nНавчальний заклад / клас / курс: ${data.get('education')}\nДосвід у дизайні: ${data.get('experience')}\nОчікування: ${data.get('expectations')}\nКонтакт для відповіді: ${data.get('contact')}`
-    )
-    window.location.href = `mailto:a.dobrianksyi@chnu.edu.ua?subject=${subject}&body=${body}`
+
+    if (isSending) return
+
+    setIsSending(true)
+    setStatus('')
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch('https://formspree.io/f/mkjolzeo', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Не вдалося надіслати заявку')
+      }
+
+      form.reset()
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    } finally {
+      setIsSending(false)
+    }
   }
 
   return (
-    <div className="modal-backdrop" onMouseDown={(event) => {
-      if (event.target === event.currentTarget) onClose()
-    }}>
-      <section className="join-modal" role="dialog" aria-modal="true" aria-labelledby="join-title">
-        <button className="modal-close" type="button" onClick={onClose} aria-label="Закрити">×</button>
+    <div
+      className="modal-backdrop"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose()
+      }}
+    >
+      <section
+        className="join-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="join-title"
+      >
+        <button
+          className="modal-close"
+          type="button"
+          onClick={onClose}
+          aria-label="Закрити"
+        >
+          ×
+        </button>
+
         <p className="inner-page-eyebrow">PIXELLAB / СПІЛЬНОТА</p>
         <h2 id="join-title">Долучайся до PixelLab</h2>
-        <p className="join-intro">Розкажи трохи про себе — і зробімо перший крок до спільної роботи.</p>
+
+        <p className="join-intro">
+          Розкажи трохи про себе — і зробімо перший крок до спільної роботи.
+        </p>
+
         <form className="join-form" onSubmit={submitApplication}>
-          <label>Ім’я та прізвище<input name="name" required placeholder="Як до тебе звертатися?" /></label>
-          <label>Де навчаєшся?<input name="education" placeholder="Школа, клас, заклад або курс" /></label>
-          <label>Досвід у дизайні<select name="experience" defaultValue="Початківець"><option>Початківець</option><option>Маю невеликий досвід</option><option>Вже створюю власні роботи</option></select></label>
-          <label>Що хочеш спробувати?<textarea name="expectations" rows="3" placeholder="Теми, навички або ідеї, які цікавлять" /></label>
-          <label>Контакт для відповіді<input name="contact" required placeholder="Email або Telegram" /></label>
-          <button className="join-submit" type="submit">Підготувати заявку <span aria-hidden="true">↗</span></button>
-          <p className="form-note">Відкриється твоя поштова програма з підготовленим листом. Перед відправленням перевір його та натисни «Надіслати».</p>
+          <label>
+            Ім’я та прізвище
+            <input
+              name="name"
+              required
+              placeholder="Як до тебе звертатися?"
+            />
+          </label>
+
+          <label>
+            Де навчаєшся?
+            <input
+              name="education"
+              placeholder="Курс, спеціальність, заклад освіти..."
+            />
+          </label>
+
+          <label>
+            Досвід у дизайні
+            <select name="experience" defaultValue="Початківець">
+              <option>Початківець</option>
+              <option>Маю невеликий досвід</option>
+              <option>Вже створюю власні роботи</option>
+            </select>
+          </label>
+
+          <label>
+            Що хочеш спробувати?
+            <textarea
+              name="expectations"
+              rows="3"
+              placeholder="Теми, навички або ідеї, які цікавлять"
+            />
+          </label>
+
+          <label>
+            Контакт для відповіді
+            <input
+              name="contact"
+              required
+              placeholder="Email/Vider/WatsApp"
+            />
+          </label>
+
+          <button
+            className="join-submit"
+            type="submit"
+            disabled={isSending}
+          >
+            {isSending ? 'Надсилаємо…' : 'Надіслати заявку'}
+            <span aria-hidden="true">↗</span>
+          </button>
+
+          {status === 'success' && (
+            <p role="status">
+              Дякуємо! Заявку надіслано. Чекай на відповідь від PixelLab.
+            </p>
+          )}
+
+          {status === 'error' && (
+            <p role="alert">
+              Не вдалося надіслати заявку. Спробуй ще раз трохи пізніше.
+            </p>
+          )}
+
+          <p className="form-note">
+            Твої дані будуть використані для розгляду заявки та зв’язку з тобою.
+          </p>
         </form>
       </section>
     </div>
