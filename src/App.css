@@ -945,7 +945,7 @@ button {
 
 @keyframes topic-panel-appear {
   from { opacity: 0; scale: 0.88; border-radius: 48%; }
-  to { opacity: 1; scale: 1; border-radius: 28px 0px 0px 28px; }
+  to { opacity: 1; scale: 1; border-radius: 28px; }
 }
 
 .topic-panel-header {
