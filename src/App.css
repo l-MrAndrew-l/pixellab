@@ -1,0 +1,2797 @@
+
+/* ОСНОВА */
+
+.site {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #FAF9F6;
+  color: #2F2E2E;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 15pt;
+  font-weight: 300;
+}
+
+button {
+  font: inherit;
+}
+
+/* ЛОГОТИПИ УСТАНОВ */
+
+.logo-row {
+  position: absolute;
+  z-index: 5;
+  top: 48px;
+  left: 190px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: opacity 400ms ease;
+}
+
+.institution-logo {
+  display: block;
+  width: auto;
+  height: 55px;
+  object-fit: contain;
+}
+
+/* ЦЕНТРАЛЬНА СЦЕНА */
+
+.hero {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.hero-stage {
+  position: relative;
+  width: min(100%, 1000px);
+  height: 560px;
+  pointer-events: none;
+}
+
+/* ГОЛОВНА БУЛЬБАШКА */
+
+.hero-bubble {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  padding: 0;
+  border: 2px solid #2F2E2E;
+  border-radius: 48% 52% 56% 44% / 48% 45% 55% 52%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transform: translate(-50%, -50%);
+  animation: bubble-motion 9s ease-in-out infinite;
+  transition:
+    background-color 450ms ease,
+    border-color 450ms ease,
+    scale 450ms ease;
+}
+
+.hero-bubble:hover,
+.hero-bubble:focus-visible,
+.hero-bubble.is-active {
+  background: #2F2E2E;
+  border-color: #2F2E2E;
+}
+.hero-bubble:hover .logo-normal,
+.hero-bubble:focus-visible .logo-normal,
+.hero-bubble.is-active .logo-normal {
+  opacity: 0;
+}
+.hero-bubble:hover .logo-inverted,
+.hero-bubble:focus-visible .logo-inverted,
+.hero-bubble.is-active .logo-inverted {
+  opacity: 1;
+}
+.hero-bubble:focus-visible,
+.nav-bubble:focus-visible,
+.back-button:focus-visible {
+  outline: 2px solid #2F2E2E;
+  outline-offset: 7px;
+}
+
+.hero-logo {
+  display: block;
+  width: 180px;
+  max-width: 75%;
+  height: auto;
+  transition: opacity 300ms ease;
+}
+
+.hero-bubble .logo-normal {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+}
+
+.hero-bubble .logo-inverted {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 180px;
+  max-width: 75%;
+  height: auto;
+  margin: auto;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-bubble:hover .logo-normal,
+.hero-bubble:focus-visible .logo-normal {
+  opacity: 0;
+}
+
+.hero-bubble:hover .logo-inverted,
+.hero-bubble:focus-visible .logo-inverted {
+  opacity: 1;
+}
+
+/* ПОСТІЙНА ОРГАНІЧНА ЗМІНА ФОРМИ */
+
+@keyframes bubble-motion {
+  0% {
+    border-radius: 48% 52% 56% 44% / 48% 45% 55% 52%;
+  }
+
+  25% {
+    border-radius: 55% 45% 48% 52% / 43% 55% 45% 57%;
+  }
+
+  50% {
+    border-radius: 44% 56% 45% 55% / 55% 48% 52% 45%;
+  }
+
+  75% {
+    border-radius: 52% 48% 57% 43% / 50% 56% 44% 50%;
+  }
+
+  100% {
+    border-radius: 48% 52% 56% 44% / 48% 45% 55% 52%;
+  }
+}
+
+/* БУЛЬБАШКИ НАВІГАЦІЇ */
+
+.nav-bubble {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 205px;
+  min-height: 155px;
+  padding: 24px;
+  border: 1px solid rgb(47 46 46 / 10%);
+  color: #2F2E2E;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% -50%;
+  scale: 0.45;
+  transition:
+    opacity 900ms ease,
+    scale 1000ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 1000ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 500ms ease,
+    border-radius 600ms ease;
+  animation: nav-bubble-float 5s ease-in-out infinite;
+}
+
+.nav-bubble--mindmap {
+  background: #C5E7E1;
+  border-radius: 44% 56% 51% 49% / 53% 44% 56% 47%;
+  transition-delay: 0ms;
+}
+
+.nav-bubble--calendar {
+  background: #F2CCBD;
+  border-radius: 55% 45% 46% 54% / 45% 55% 45% 55%;
+  animation-delay: -2.3s;
+  transition-delay: 80ms;
+}
+
+@keyframes nav-bubble-float {
+  0%, 100% {
+    margin-top: 4px;
+  }
+
+  50% {
+    margin-top: -9px;
+  }
+}
+
+/* ВІДКРИТТЯ МЕНЮ */
+
+.menu-open .nav-bubble {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  scale: 1;
+}
+
+.menu-open .nav-bubble--mindmap {
+  translate: calc(-50% - 290px) -50%;
+}
+
+.menu-open .nav-bubble--calendar {
+  translate: calc(-50% + 290px) -50%;
+}
+
+/* ТЕКСТ У БУЛЬБАШКАХ */
+
+.nav-bubble-title {
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.nav-bubble-subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+/* НАВЕДЕННЯ: РОЗТЯГУВАННЯ НАЗОВНІ */
+
+.menu-open .nav-bubble--mindmap:hover,
+.menu-open .nav-bubble--mindmap:focus-visible {
+  translate: calc(-50% - 315px) -50%;
+  scale: 1.16 1.08;
+  background: #A5D9D0;
+  border-radius: 50% 50% 48% 52% / 48% 52% 48% 52%;
+}
+
+.menu-open .nav-bubble--calendar:hover,
+.menu-open .nav-bubble--calendar:focus-visible {
+  translate: calc(-50% + 315px) -50%;
+  scale: 1.16 1.08;
+  background: #EBAF98;
+  border-radius: 50% 50% 48% 52% / 48% 52% 48% 52%;
+}
+
+/* ПІДГОТОВКА ДО ПЕРЕХОДУ */
+
+.is-transitioning .logo-row,
+.is-transitioning .features {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.is-transitioning .hero-bubble {
+  opacity: 0;
+  scale: 0.7;
+  transition:
+    opacity 300ms ease,
+    scale 500ms ease;
+}
+
+.is-transitioning .nav-bubble {
+  animation-play-state: paused;
+  pointer-events: none;
+  opacity: 0;
+  visibility: visible;
+  transition:
+    opacity 250ms ease,
+    scale 650ms ease,
+    translate 650ms ease;
+}
+
+.is-transitioning .nav-bubble--mindmap {
+  translate: -50% -50%;
+}
+
+.is-transitioning .nav-bubble--calendar {
+  translate: -50% -50%;
+}
+
+.is-transitioning.destination-mindmap .nav-bubble--mindmap,
+.is-transitioning.destination-calendar .nav-bubble--calendar {
+  opacity: 1;
+  scale: 2.1;
+}
+
+.is-transitioning.destination-mindmap .nav-bubble--mindmap {
+  background: #C5E7E1;
+}
+
+.is-transitioning.destination-calendar .nav-bubble--calendar {
+  background: #F2CCBD;
+}
+
+/* НИЖНІ ІНФОРМАЦІЙНІ БЛОКИ */
+
+.features {
+  position: absolute;
+  z-index: 5;
+  right: 190px;
+  bottom: 15px;
+  left: 190px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  transition: opacity 300ms ease;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 0;
+  padding-bottom: 10px;
+  color: #777672;
+  transition:
+    transform 280ms ease,
+    color 280ms ease;
+}
+
+.feature-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 280ms ease;
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  color: inherit;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 13pt;
+  font-weight: 300;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.feature-text span {
+  display: block;
+}
+
+.feature:hover {
+  color: #2F2E2E;
+  transform: translateY(-4px) scale(1.02);
+  border-bottom: 1px solid #2F2E2E;
+}
+
+.feature:hover .feature-icon {
+  transform: scale(1.05);
+}
+
+/* ВНУТРІШНІ СТОРІНКИ */
+
+.inner-page {
+  min-height: 100vh;
+  padding: 48px 8%;
+  animation: page-appear 550ms ease both;
+}
+
+@keyframes page-appear {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: #2F2E2E;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.back-button span {
+  font-size: 24px;
+  transition: translate 250ms ease;
+}
+
+.back-button:hover span {
+  translate: -5px 0;
+}
+
+.inner-page-content {
+  width: min(100%, 1000px);
+  margin: 12vh auto 0;
+}
+
+.inner-page-eyebrow {
+  margin: 0 0 20px;
+  color: #777672;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.inner-page h1 {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 84px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.inner-page-description {
+  margin: 24px 0 40px;
+  font-size: 19px;
+}
+
+.page-placeholder {
+  display: grid;
+  min-height: 220px;
+  place-items: center;
+  padding: 32px;
+  border: 1px solid rgb(47 46 46 / 12%);
+  border-radius: 32px;
+  color: #777672;
+  text-align: center;
+}
+
+.page-placeholder--mindmap {
+  background: rgb(197 231 225 / 25%);
+}
+
+.page-placeholder--calendar {
+  background: rgb(242 204 189 / 25%);
+}
+
+/* СЕРЕДНІ ЕКРАНИ */
+
+@media (max-width: 1200px) {
+  .logo-row {
+    left: 48px;
+  }
+
+  .features {
+    right: 48px;
+    left: 48px;
+    gap: 20px;
+  }
+
+  .feature-text {
+    font-size: 12pt;
+  }
+
+  .hero-stage {
+    scale: 0.9;
+  }
+}
+
+/* МОБІЛЬНІ ПРИСТРОЇ */
+
+@media (max-width: 760px) {
+  .site {
+    min-height: 100svh;
+    overflow: auto;
+  }
+
+  .logo-row {
+    top: 24px;
+    right: 24px;
+    left: 24px;
+    gap: 10px;
+  }
+
+  .institution-logo {
+    height: 36px;
+    max-width: 27vw;
+  }
+
+  .hero {
+    position: relative;
+    inset: auto;
+    min-height: 70svh;
+    padding: 100px 20px 20px;
+    box-sizing: border-box;
+  }
+
+  .hero-stage {
+    width: 100%;
+    height: 420px;
+    scale: 1;
+  }
+
+  .hero-bubble {
+    width: min(65vw, 280px);
+    height: min(65vw, 280px);
+  }
+
+  .hero-logo,
+  .hero-bubble .logo-inverted {
+    width: 70%;
+    max-width: 75%;
+  }
+
+  .nav-bubble {
+    width: 145px;
+    min-height: 125px;
+    padding: 15px;
+    margin-top: 0;
+  }
+
+  .nav-bubble-title {
+    font-size: 16px;
+  }
+
+  .nav-bubble-subtitle {
+    font-size: 13px;
+  }
+
+  .menu-open .nav-bubble--mindmap {
+    translate: calc(-50% - 82px) calc(-50% + 145px);
+  }
+
+  .menu-open .nav-bubble--calendar {
+    translate: calc(-50% + 82px) calc(-50% + 145px);
+  }
+
+  .menu-open .nav-bubble--mindmap:hover,
+  .menu-open .nav-bubble--mindmap:focus-visible {
+    translate: calc(-50% - 88px) calc(-50% + 145px);
+  }
+
+  .menu-open .nav-bubble--calendar:hover,
+  .menu-open .nav-bubble--calendar:focus-visible {
+    translate: calc(-50% + 88px) calc(-50% + 145px);
+  }
+
+  .features {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 18px;
+    padding: 20px 24px 36px;
+  }
+
+  .feature {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .feature-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .feature-text {
+    font-size: 10pt;
+    overflow-wrap: anywhere;
+  }
+
+  .inner-page {
+    padding: 24px;
+  }
+
+  .inner-page-content {
+    margin-top: 10vh;
+  }
+
+  .inner-page-description {
+    font-size: 16px;
+  }
+
+  .page-placeholder {
+    min-height: 180px;
+  }
+}
+
+/* ЗМЕНШЕННЯ АНІМАЦІЇ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   МАЙНДМАП PIXELLAB
+======================================== */
+
+.mindmap-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #FAF9F6;
+  color: #2F2E2E;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+
+/* Верхня панель */
+
+.mindmap-header {
+  position: absolute;
+  z-index: 20;
+  top: 28px;
+  right: 40px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.mindmap-header-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mindmap-brand {
+  display: block;
+  width: 88px;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+.mindmap-header .institution-logo {
+  width: auto;
+  height: 42px;
+  max-width: 145px;
+  object-fit: contain;
+}
+
+.mindmap-back {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(47 46 46 / 20%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease, transform 250ms ease;
+}
+
+.mindmap-back span {
+  font-size: 27px;
+  line-height: 1;
+  transform: rotate(45deg);
+}
+
+.mindmap-back:hover {
+  background: #2F2E2E;
+  color: #FAF9F6;
+  transform: scale(1.05);
+}
+
+/* Полотно. Бульбашки позиціонуються відносно нього */
+
+.mindmap-canvas {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 650px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Центральна бульбашка */
+
+.mindmap-center {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 230px;
+  height: 230px;
+  padding: 24px;
+  box-sizing: border-box;
+  border-radius: 48% 52% 56% 44% / 48% 45% 55% 52%;
+  background: #2F2E2E;
+  color: #FAF9F6;
+  text-align: center;
+  translate: -50% -50%;
+  animation: mindmap-center-float 8s ease-in-out infinite;
+  transition: opacity 400ms ease, scale 400ms ease;
+}
+
+.mindmap-center-title {
+  max-width: 190px;
+  margin: 0;
+  font-size: clamp(29px, 3vw, 38px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: 0.1px;
+}
+
+@keyframes mindmap-center-float {
+  0%, 100% {
+    translate: -50% -50%;
+    border-radius: 48% 52% 56% 44% / 48% 45% 55% 52%;
+  }
+  50% {
+    translate: -50% calc(-50% - 7px);
+    border-radius: 54% 46% 47% 53% / 45% 54% 46% 55%;
+  }
+}
+
+/* Тематичні бульбашки */
+
+.mindmap-bubble {
+  position: absolute;
+  z-index: 4;
+  top: var(--bubble-top);
+  left: var(--bubble-left);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 142px;
+  height: 136px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgb(47 46 46 / 9%);
+  border-radius: 48% 52% 55% 45% / 50% 45% 55% 50%;
+  background: var(--bubble-color);
+  color: #2F2E2E;
+  text-align: center;
+  cursor: pointer;
+  translate: -50% -50%;
+  scale: 1;
+  animation: mindmap-bubble-float var(--float-duration, 7s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  transition:
+    translate 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    scale 400ms ease,
+    opacity 350ms ease,
+    border-radius 400ms ease,
+    box-shadow 400ms ease;
+}
+
+.mindmap-bubble img {
+  display: block;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.mindmap-bubble span {
+  max-width: 120px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+
+.mindmap-bubble:hover,
+.mindmap-bubble:focus-visible {
+  z-index: 8;
+  scale: 1.08;
+  border-radius: 42% 58% 48% 52% / 54% 44% 56% 46%;
+  box-shadow: 0 10px 28px rgb(47 46 46 / 12%);
+  outline: none;
+}
+
+.mindmap-bubble:focus-visible {
+  outline: 2px solid #2F2E2E;
+  outline-offset: 3px;
+}
+
+@keyframes mindmap-bubble-float {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -7px; }
+}
+
+/*
+  Рівномірне кільце навколо центру.
+  Координати — центр кожної бульбашки, тому крайні елементи
+  залишаються в межах полотна.
+*/
+
+.mindmap-bubble--1 {
+  --bubble-top: 17%;
+  --bubble-left: 50%;
+  --escape-x: 0px; --escape-y: -118px;
+  --float-duration: 7.1s;
+  --float-delay: -0.2s;
+}
+.mindmap-bubble--2 {
+  --bubble-top: 23%;
+  --bubble-left: 63%;
+  --escape-x: 92px; --escape-y: -92px;
+  --float-duration: 6.3s;
+  --float-delay: -2s;
+}
+.mindmap-bubble--3 {
+  --bubble-top: 39%;
+  --bubble-left: 72%;
+  --escape-x: 142px; --escape-y: -24px;
+  --float-duration: 7.8s;
+  --float-delay: -3s;
+}
+.mindmap-bubble--4 {
+  --bubble-top: 61%;
+  --bubble-left: 72%;
+  --escape-x: 142px; --escape-y: 24px;
+  --float-duration: 6.8s;
+  --float-delay: -1s;
+}
+.mindmap-bubble--5 {
+  --bubble-top: 77%;
+  --bubble-left: 63%;
+  --escape-x: 92px; --escape-y: 92px;
+  --float-duration: 8s;
+  --float-delay: -4s;
+}
+.mindmap-bubble--6 {
+  --bubble-top: 83%;
+  --bubble-left: 50%;
+  --escape-x: 0px; --escape-y: 122px;
+  --float-duration: 7.4s;
+  --float-delay: -2.5s;
+}
+.mindmap-bubble--7 {
+  --bubble-top: 77%;
+  --bubble-left: 37%;
+  --escape-x: -92px; --escape-y: 92px;
+  --float-duration: 6.5s;
+  --float-delay: -1.5s;
+}
+.mindmap-bubble--8 {
+  --bubble-top: 61%;
+  --bubble-left: 28%;
+  --escape-x: -142px; --escape-y: 24px;
+  --float-duration: 7.7s;
+  --float-delay: -3.5s;
+}
+.mindmap-bubble--9 {
+  --bubble-top: 39%;
+  --bubble-left: 28%;
+  --escape-x: -142px; --escape-y: -24px;
+  --float-duration: 6.9s;
+  --float-delay: -2.2s;
+}
+.mindmap-bubble--10 {
+  --bubble-top: 23%;
+  --bubble-left: 37%;
+  --escape-x: -92px; --escape-y: -92px;
+  --float-duration: 8.2s;
+  --float-delay: -4.2s;
+}
+
+/* Відкриваємо простір для панелі: бульбашки розбігаються назовні,
+   а не зникають під вікном. */
+
+.mindmap-canvas.has-selection .mindmap-center {
+  opacity: 0.18;
+  scale: 0.82;
+}
+
+.mindmap-canvas.has-selection .mindmap-bubble:not(.is-selected) {
+  pointer-events: none;
+  opacity: 0.78;
+  translate: calc(-50% + var(--escape-x, 0px)) calc(-50% + var(--escape-y, 0px));
+  scale: 0.78;
+}
+
+.mindmap-canvas.has-selection .mindmap-bubble.is-selected {
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.5;
+}
+
+/* Інформаційне вікно */
+
+.topic-panel {
+  position: absolute;
+  z-index: 12;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  width: min(800px, calc(100% - 110px));
+  height: min(600px, calc(100% - 140px));
+  padding: 0 20px 19px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgb(47 46 46 / 8%);
+  border-radius: 28px;
+  background: var(--panel-color);
+  --panel-highlight: color-mix(in srgb, var(--panel-color) 42%, #FAF9F6 58%);
+  color: #2F2E2E;
+  box-shadow: 0 24px 80px rgb(47 46 46 / 12%);
+  translate: -50% -50%;
+  animation: topic-panel-appear 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes topic-panel-appear {
+  from { opacity: 0; scale: 0.88; border-radius: 48%; }
+  to { opacity: 1; scale: 1; border-radius: 28px; }
+}
+
+.topic-panel-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 16px;
+  margin: 0 -20px 12px;
+  padding: 16px 16px 13px;
+  border: 1px solid rgb(47 46 46 / 8%);
+  border-top: 0;
+  border-radius: 27px 27px 0px 0px;
+  background: var(--panel-highlight);
+  text-align: center;
+  box-shadow: 0 2px 9px rgb(47 46 46 / 4%);
+}
+
+.topic-panel-header > div {
+  width: 100%;
+  padding: 0 38px;
+  box-sizing: border-box;
+}
+
+.topic-panel-header h2 {
+  margin: 0;
+  font-size: clamp(27px, 2.7vw, 36px);
+  font-weight: 400;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.topic-panel-course {
+  margin: 7px 0 0;
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.topic-panel-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(47 46 46 / 25%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, rotate 200ms ease;
+}
+
+.topic-panel-close:hover {
+  background: #2F2E2E;
+  color: #FAF9F6;
+  rotate: 90deg;
+}
+
+/* Зображення та підписи: однакова ширина, природні пропорції по висоті. */
+
+.topic-cards {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  align-content: stretch;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.topic-card {
+  --card-media-width: clamp(150px, 18vw, 220px);
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 250ms ease;
+}
+
+.topic-card img {
+  display: block;
+  flex: 0 0 auto;
+  width: min(var(--card-media-width), 100%);
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+
+.topic-card:hover {
+  transform: scale(1.035);
+  z-index: 2;
+}
+
+.topic-card p {
+  box-sizing: border-box;
+  width: min(var(--card-media-width), 100%);
+  margin: 9px 0 0;
+  padding: 8px 11px;
+  border: 1px solid rgb(47 46 46 / 10%);
+  border-radius: 11px;
+  background: var(--panel-highlight);
+  color: #2F2E2E;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.22;
+  text-align: center;
+  text-wrap: balance;
+  box-shadow: 0 2px 8px rgb(47 46 46 / 4%);
+}
+
+/* Для п'яти пунктів — три рівні за шириною колонки.
+   Нижній рядок займає центральні дві колонки. */
+.topic-cards--5 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.topic-cards--5 .topic-card {
+  grid-column: span 2;
+}
+
+.topic-cards--5 .topic-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.topic-cards--5 .topic-card:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+
+.topic-cards--5 .topic-card img {
+  width: clamp(150px, 18vw, 220px);
+  max-width: 100%;
+}
+
+.topic-cards--5 .topic-card p {
+  width: 100%;
+  margin-top: 8px;
+  padding: 7px 8px;
+  font-size: 15px;
+  line-height: 1.18;
+}
+
+/* Для трьох пунктів третя картка центрується в нижньому рядку. */
+.topic-cards--3 .topic-card:nth-child(3) {
+  grid-column: 1 / -1;
+  width: 50%;
+  justify-self: center;
+}
+
+/* Чотири текстові блоки «Типи робіт» */
+
+.work-types-grid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 0;
+}
+
+.work-type {
+  min-width: 0;
+  padding: 13px 15px;
+  box-sizing: border-box;
+  border: 1px solid rgb(47 46 46 / 12%);
+  border-radius: 16px;
+  background: var(--panel-highlight);
+}
+
+.work-type h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.work-type ul {
+  margin: 0;
+  padding-left: 17px;
+}
+
+.work-type li {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.18;
+}
+
+/* Розмір вікна залежить від кількості матеріалів.
+   П'ять карток потребують ширшої панелі; три-чотири — компактнішої.
+   Блок «Типи робіт» залишаємо трохи ширшим через довші текстові списки. */
+@media (min-width: 1101px) {
+  .topic-panel:has(.topic-cards--5) {
+    width: min(920px, calc(100% - 80px));
+    height: min(640px, calc(100% - 100px));
+  }
+
+  .topic-panel:has(.topic-cards--3),
+  .topic-panel:has(.topic-cards:not(.topic-cards--3):not(.topic-cards--5)) {
+    width: min(700px, calc(100% - 120px));
+    height: min(560px, calc(100% - 140px));
+  }
+
+  .topic-panel:has(.work-types-grid) {
+    width: min(760px, calc(100% - 100px));
+    height: min(600px, calc(100% - 120px));
+  }
+}
+
+/* Середні екрани */
+
+@media (max-width: 1100px) {
+  .mindmap-header {
+    top: 20px;
+    right: 24px;
+    left: 24px;
+  }
+
+  .mindmap-header-logos { gap: 10px; }
+
+  .mindmap-header .institution-logo {
+    height: 34px;
+    max-width: 105px;
+  }
+
+  .mindmap-brand { width: 70px; }
+
+  .mindmap-center {
+    width: 190px;
+    height: 190px;
+  }
+
+  .mindmap-center-title { font-size: 31px; }
+
+  .mindmap-bubble {
+    width: 120px;
+    height: 116px;
+    padding: 9px;
+    gap: 5px;
+  }
+
+  .mindmap-bubble img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mindmap-bubble span { font-size: 14px; }
+
+  .mindmap-bubble--1 { --escape-y: -92px; }
+  .mindmap-bubble--2 { --escape-x: 58px; --escape-y: -70px; }
+  .mindmap-bubble--3 { --escape-x: 78px; --escape-y: -18px; }
+  .mindmap-bubble--4 { --escape-x: 78px; --escape-y: 18px; }
+  .mindmap-bubble--5 { --escape-x: 58px; --escape-y: 70px; }
+  .mindmap-bubble--6 { --escape-y: 92px; }
+  .mindmap-bubble--7 { --escape-x: -58px; --escape-y: 70px; }
+  .mindmap-bubble--8 { --escape-x: -78px; --escape-y: 18px; }
+  .mindmap-bubble--9 { --escape-x: -78px; --escape-y: -18px; }
+  .mindmap-bubble--10 { --escape-x: -58px; --escape-y: -70px; }
+
+  .topic-panel {
+    width: min(700px, calc(100% - 48px));
+    height: min(530px, calc(100% - 100px));
+    padding: 16px 18px;
+  }
+
+  .topic-card img { max-height: clamp(125px, 18vh, 170px); }
+  .topic-card p { font-size: 16px; }
+  .topic-cards--5 .topic-card img { max-height: clamp(100px, 14vh, 145px); }
+  .topic-cards--5 .topic-card p { font-size: 14px; }
+  .work-type { padding: 10px 12px; }
+  .work-type h3 { font-size: 16px; }
+  .work-type li { font-size: 13px; }
+
+  /* На середніх екранах теж розрізняємо панелі за вмістом. */
+  .topic-panel:has(.topic-cards--5) {
+    width: min(760px, calc(100% - 36px));
+    height: min(560px, calc(100% - 80px));
+  }
+
+  .topic-panel:has(.topic-cards--3),
+  .topic-panel:has(.topic-cards:not(.topic-cards--3):not(.topic-cards--5)) {
+    width: min(620px, calc(100% - 48px));
+    height: min(500px, calc(100% - 100px));
+  }
+
+  .topic-panel:has(.work-types-grid) {
+    width: min(680px, calc(100% - 40px));
+    height: min(540px, calc(100% - 80px));
+  }
+}
+
+/* Мобільна версія */
+
+@media (max-width: 760px) {
+  .mindmap-page {
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .mindmap-header {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    padding: 16px 14px 0;
+    gap: 10px;
+  }
+
+  .mindmap-header-logos {
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mindmap-brand {
+    width: 58px;
+    max-height: 30px;
+  }
+
+  .mindmap-header .institution-logo {
+    height: 27px;
+    max-width: 22vw;
+  }
+
+  .mindmap-back {
+    width: 38px;
+    height: 38px;
+  }
+
+  .mindmap-canvas {
+    height: 720px;
+    min-height: 720px;
+  }
+
+  .mindmap-center {
+    top: 50%;
+    width: 132px;
+    height: 132px;
+    gap: 5px;
+    padding: 12px;
+  }
+
+  .mindmap-center-title { font-size: 21px; }
+
+  .mindmap-bubble {
+    width: 94px;
+    height: 92px;
+    gap: 4px;
+    padding: 7px;
+  }
+
+  .mindmap-bubble img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .mindmap-bubble span {
+    max-width: 82px;
+    font-size: 11px;
+    line-height: 1.05;
+  }
+
+  /* П'ять пар бульбашок уздовж країв, із запасом від меж */
+  .mindmap-bubble--1 { --bubble-top: 14%; --bubble-left: 50%; }
+  .mindmap-bubble--2 { --bubble-top: 25%; --bubble-left: 79%; }
+  .mindmap-bubble--3 { --bubble-top: 43%; --bubble-left: 82%; }
+  .mindmap-bubble--4 { --bubble-top: 63%; --bubble-left: 82%; }
+  .mindmap-bubble--5 { --bubble-top: 81%; --bubble-left: 70%; }
+  .mindmap-bubble--6 { --bubble-top: 81%; --bubble-left: 30%; }
+  .mindmap-bubble--7 { --bubble-top: 63%; --bubble-left: 18%; }
+  .mindmap-bubble--8 { --bubble-top: 43%; --bubble-left: 18%; }
+  .mindmap-bubble--9 { --bubble-top: 25%; --bubble-left: 21%; }
+  .mindmap-bubble--10 { --bubble-top: 14%; --bubble-left: 50%; }
+
+  /* На вузькому екрані верхні дві бульбашки не накладаємо одна на одну */
+  .mindmap-bubble--1 { --bubble-left: 35%; }
+  .mindmap-bubble--10 { --bubble-left: 65%; }
+
+  .mindmap-canvas.has-selection .mindmap-bubble:not(.is-selected) {
+    opacity: 0;
+    translate: -50% -50%;
+    scale: 0.72;
+  }
+
+  .topic-panel {
+    position: fixed;
+    z-index: 30;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    padding: 20px 16px 24px;
+    overflow-y: auto;
+    border: 0;
+    border-radius: 0;
+    translate: 0 0;
+    animation: mobile-panel-appear 350ms ease both;
+  }
+
+  /* На мобільних усі варіанти панелі займають весь екран. */
+  .topic-panel:has(.topic-cards--5),
+  .topic-panel:has(.topic-cards--3),
+  .topic-panel:has(.topic-cards:not(.topic-cards--3):not(.topic-cards--5)),
+  .topic-panel:has(.work-types-grid) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes mobile-panel-appear {
+    from { opacity: 0; translate: 0 14px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  .topic-panel-header {
+    gap: 10px;
+    margin: 0 0 18px;
+    padding: 13px 10px;
+    border-radius: 14px;
+  }
+
+  .topic-panel-header > div { padding: 0 34px; }
+  .topic-panel-header h2 { font-size: 27px; }
+  .topic-panel-course { font-size: 14px; }
+
+  .topic-cards {
+    flex: initial;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 18px 10px;
+  }
+
+  .topic-card { --card-media-width: clamp(120px, 32vw, 190px); }
+  .topic-card img {
+    width: min(var(--card-media-width), 100%);
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+  }
+  .topic-card p { width: min(var(--card-media-width), 100%); font-size: 16px; }
+  .topic-cards--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: 18px 10px;
+  }
+  .topic-cards--5 .topic-card {
+    grid-column: auto;
+  }
+  .topic-cards--5 .topic-card:nth-child(4) {
+    grid-column: auto;
+  }
+  .topic-cards--5 .topic-card:nth-child(5) {
+    grid-column: 1 / -1;
+    width: 50%;
+    justify-self: center;
+  }
+  .topic-cards--5 .topic-card { --card-media-width: clamp(120px, 32vw, 190px); }
+  .topic-cards--5 .topic-card img {
+    width: min(var(--card-media-width), 100%);
+    max-width: 100%;
+    max-height: none;
+  }
+  .topic-cards--5 .topic-card p { width: min(var(--card-media-width), 100%); }
+  .topic-cards--5 .topic-card p { font-size: 15px; }
+  .topic-cards--3 .topic-card:nth-child(3) {
+    grid-column: 1 / -1;
+    width: 50%;
+  }
+
+  .work-types-grid {
+    flex: initial;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+
+  .work-type { padding: 13px; }
+  .work-type h3 { font-size: 17px; }
+  .work-type li { font-size: 14px; }
+}
+
+/* Дуже вузькі екрани */
+@media (max-width: 390px) {
+  .mindmap-canvas { height: 680px; min-height: 680px; }
+  .mindmap-bubble { width: 84px; height: 82px; }
+  .mindmap-bubble span { font-size: 10px; }
+  .mindmap-bubble img { width: 22px; height: 22px; }
+  .mindmap-center { width: 118px; height: 118px; }
+  .mindmap-center-title { font-size: 18px; }
+  .topic-panel { padding: 18px 13px 22px; }
+}
+
+/* Доступність */
+@media (prefers-reduced-motion: reduce) {
+  .mindmap-center,
+  .mindmap-bubble {
+    animation: none;
+  }
+
+  .mindmap-bubble,
+  .mindmap-center,
+  .topic-panel,
+  .mindmap-back {
+    transition-duration: 0.01ms;
+  }
+}
+
+
+/* ========================================
+   СПІЛЬНІ ПІДКАЗКИ ТА КНОПКА ДОЛУЧЕННЯ
+======================================== */
+
+.site-hint {
+  position: absolute;
+  z-index: 25;
+  top: 105px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: calc(100% - 36px);
+  padding: 9px 16px;
+  border: 1px solid rgb(47 46 46 / 9%);
+  border-radius: 30px;
+  background: rgb(250 249 246 / 90%);
+  color: #777672;
+  font-size: 14px;
+  text-align: center;
+  translate: -50% 0;
+  animation: hint-appear 700ms ease both;
+  pointer-events: none;
+}
+
+.site-hint-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #C5E7E1;
+  box-shadow: 0 0 0 4px rgb(197 231 225 / 25%);
+}
+
+@keyframes hint-appear {
+  from { opacity: 0; translate: -50% -6px; }
+  to { opacity: 1; translate: -50% 0; }
+}
+
+.join-button {
+  position: fixed;
+  z-index: 40;
+  top: 28px;
+  right: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid #2F2E2E;
+  border-radius: 30px;
+  background: #2F2E2E;
+  color: #FAF9F6;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 250ms ease, color 250ms ease, transform 250ms ease;
+}
+
+.join-button span {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 250ms ease;
+}
+
+.join-button:hover {
+  background: #C5E7E1;
+  color: #2F2E2E;
+  transform: translateY(-2px);
+}
+
+.join-button:hover span { transform: translate(2px, -2px); }
+
+.mindmap-header-actions,
+.calendar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mindmap-header .join-button,
+.calendar-header .join-button {
+  position: static;
+}
+
+.mindmap-page > .join-button {
+  position: fixed;
+  top: auto;
+  right: 28px;
+  bottom: 24px;
+}
+
+.mindmap-page .site-hint {
+  top: 100px;
+}
+
+.mindmap-header { padding-right: 0; }
+
+/* ========================================
+   СТОРІНКА ПЛАНУ ГУРТКА
+======================================== */
+
+.calendar-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 6% 70px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #FAF9F6;
+  color: #2F2E2E;
+  font-family: 'Alegreya Sans', sans-serif;
+  animation: page-appear 550ms ease both;
+}
+
+.calendar-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 96px;
+  border-bottom: 1px solid rgb(47 46 46 / 10%);
+}
+
+.calendar-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 18px;
+}
+
+.calendar-brand {
+  display: block;
+  width: 100px;
+  max-height: 50px;
+  object-fit: contain;
+}
+
+.calendar-header-divider {
+  width: 1px;
+  height: 34px;
+  background: rgb(47 46 46 / 20%);
+}
+
+.calendar-home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 0 10px 10px;
+  border: 0;
+  background: transparent;
+  color: #2F2E2E;
+  cursor: pointer;
+}
+
+.calendar-home-button span {
+  font-size: 20px;
+  transform: rotate(45deg);
+}
+
+.calendar-page > .site-hint {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: 3%;
+  margin: 20px auto 0;
+  translate: 0 0;
+}
+
+.calendar-content {
+  width: min(1120px, 100%);
+  margin: 32px auto 0;
+}
+
+.calendar-intro { margin-bottom: 28px; }
+
+.calendar-intro .inner-page-eyebrow { margin-bottom: 10px; }
+
+.calendar-intro h1 {
+  margin: 0;
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.calendar-intro > p:not(.inner-page-eyebrow) {
+  max-width: 600px;
+  margin: 14px 0 0;
+  color: #777672;
+  font-size: 19px;
+}
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.calendar-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #777672;
+  font-size: 14px;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot--lesson { background: #C5E7E1; }
+.legend-dot--free { background: #EBAF98; }
+.legend-dot--break { background: #D8D4CC; }
+
+.year-calendar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top:30px;
+}
+
+.month-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 155px;
+  padding: 17px;
+  overflow: hidden;
+  border: 1px solid rgb(47 46 46 / 10%);
+  border-radius: 20px;
+  background: #F0EFE9;
+  color: #2F2E2E;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 250ms ease, box-shadow 250ms ease, background 250ms ease;
+}
+
+.month-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgb(47 46 46 / 8%);
+  background: #E8E6DE;
+}
+
+.month-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.month-tile-top > span:last-child {
+  font-size: 18px;
+  opacity: .55;
+}
+
+.month-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.month-date {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: #C5E7E1;
+  font-size: 13px;
+  transition: transform 250ms ease;
+}
+
+.month-date--free {
+  background: #EBAF98;
+  animation: free-date-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes free-date-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(235 175 152 / 30%); }
+  50% { box-shadow: 0 0 0 5px rgb(235 175 152 / 16%); }
+}
+
+.month-tile-bottom {
+  margin-top: auto;
+  padding-top: 15px;
+  color: #777672;
+  font-size: 13px;
+}
+
+.month-tile--break {
+  background-color: #E9E6DE;
+  background-image:
+    radial-gradient(circle at 12px 12px, rgb(255 255 255 / 42%) 1.5px, transparent 2px),
+    radial-gradient(circle at 35px 35px, rgb(47 46 46 / 5%) 1px, transparent 2px);
+  background-size: 48px 48px;
+}
+
+.winter-pattern {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 55px;
+  margin-top: 12px;
+  color: #A5A197;
+}
+
+.winter-pattern > span:nth-child(odd) { font-size: 23px; }
+.winter-pattern > span:nth-child(even) { font-size: 17px; }
+.winter-pattern small {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #777672;
+  font-size: 13px;
+  text-align: center;
+}
+
+.calendar-footer,
+.month-view-footer,
+.plan-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.calendar-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgb(47 46 46 / 10%);
+}
+
+.calendar-footer p {
+  margin: 0;
+  color: #777672;
+  font-size: 16px;
+}
+
+.calendar-footer strong { color: #2F2E2E; }
+
+.outline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  border: 1px solid rgb(47 46 46 / 24%);
+  border-radius: 30px;
+  background: transparent;
+  color: #2F2E2E;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.outline-button:hover {
+  border-color: #C5E7E1;
+  background: #C5E7E1;
+  transform: translateY(-2px);
+}
+
+.calendar-document {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 38px;
+  padding: 24px 0 0;
+  border-top: 1px solid rgb(47 46 46 / 10%);
+}
+
+.calendar-document .inner-page-eyebrow { margin: 0 0 6px; }
+
+.calendar-document h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.calendar-document p:not(.inner-page-eyebrow) {
+  margin: 7px 0 0;
+  color: #777672;
+  font-size: 15px;
+}
+
+.document-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Перегляд місяця */
+
+.month-view {
+  padding: 20px 0 0;
+  animation: page-appear 350ms ease both;
+}
+
+.month-slider-heading {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.slider-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(47 46 46 / 0%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+  font-size: 23px;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.slider-arrow:hover:not(:disabled) { background: #C5E7E1; }
+.slider-arrow:disabled { opacity: .25; cursor: default; }
+
+.month-slider-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  min-width: 0;
+}
+
+.month-slider-title h2 {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 300;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.neighbor-month {
+  max-width: 140px;
+  padding: 8px 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: #A09D95;
+  font: inherit;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.neighbor-month:hover { color: #2F2E2E; }
+
+.session-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+}
+
+.session-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid rgb(47 46 46 / 10%);
+  border-radius: 18px;
+  background: #F0EFE9;
+  color: #2F2E2E;
+  text-align: left;
+  cursor: pointer;
+  transition: background 250ms ease, border-color 250ms ease, transform 250ms ease;
+  align-items: stretch;
+}
+
+.session-card:hover { transform: translateY(-2px); }
+.session-card--selected { border-color: rgb(47 46 46 / 24%); }
+.session-card--free { background: #F4E1D9; }
+.session-card--free .session-date { background: #EBAF98; }
+
+.session-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 56px;
+  border-radius: 14px;
+  background: #C5E7E1;
+}
+
+.session-date strong {
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.session-date small {
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.session-main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.session-number {
+  color: #777672;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.session-main strong {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.session-main > small {
+  color: #777672;
+  font-size: 13px;
+}
+
+.session-arrow {
+  align-self: start;
+  font-size: 22px;
+  text-align: center;
+}
+
+.session-details {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-direction: column;
+  gap: 13px;
+  padding-top: 15px;
+  border-top: 1px solid rgb(47 46 46 / 12%);
+  font-size: 15px;
+  line-height: 1.35;
+  animation: page-appear 250ms ease both;
+}
+
+.session-details > span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-details strong { font-weight: 500; }
+
+.month-view-footer {
+  margin-top: 22px;
+  padding-top: 17px;
+  border-top: 1px solid rgb(47 46 46 / 10%);
+}
+
+.month-break-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  padding: 30px;
+  border: 1px solid rgb(47 46 46 / 8%);
+  border-radius: 24px;
+  background-color: #E9E6DE;
+  background-image: radial-gradient(circle at 18px 18px, rgb(255 255 255 / 45%) 1.5px, transparent 2px);
+  background-size: 48px 48px;
+  text-align: center;
+}
+
+.break-symbol { color: #A5A197; font-size: 40px; }
+
+.month-break-panel h3 {
+  margin: 10px 0 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.month-break-panel p {
+  max-width: 480px;
+  margin: 10px 0 0;
+  color: #777672;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.empty-month {
+  grid-column: 1 / -1;
+  color: #777672;
+}
+
+/* ========================================
+   МОДАЛЬНІ ВІКНА
+======================================== */
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: rgb(47 46 46 / 42%);
+  backdrop-filter: blur(5px);
+  animation: backdrop-appear 200ms ease both;
+}
+
+@keyframes backdrop-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.join-modal,
+.plan-modal {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: min(90vh, 900px);
+  padding: 34px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  border: 1px solid rgb(47 46 46 / 8%);
+  border-radius: 26px;
+  background: #FAF9F6;
+  box-shadow: 0 24px 90px rgb(47 46 46 / 20%);
+  animation: topic-panel-appear 300ms ease both;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgb(47 46 46 / 20%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+  font-size: 27px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.modal-close:hover {
+  background: #2F2E2E;
+  color: #FAF9F6;
+}
+
+.join-modal .inner-page-eyebrow { margin: 0 0 14px; }
+
+.join-modal h2 {
+  max-width: 440px;
+  margin: 0;
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.join-intro {
+  max-width: 470px;
+  margin: 14px 0 24px;
+  color: #777672;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.join-form {
+  display: grid;
+  gap: 15px;
+}
+
+.join-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.join-form input,
+.join-form select,
+.join-form textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 13px;
+  box-sizing: border-box;
+  border: 1px solid rgb(47 46 46 / 17%);
+  border-radius: 11px;
+  outline: none;
+  background: #F4F2EC;
+  color: #2F2E2E;
+  font: inherit;
+  font-size: 15px;
+}
+
+.join-form textarea { resize: vertical; }
+
+.join-form input:focus,
+.join-form select:focus,
+.join-form textarea:focus {
+  border-color: #87BDB3;
+  box-shadow: 0 0 0 3px rgb(197 231 225 / 45%);
+}
+
+.join-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 3px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 30px;
+  background: #2F2E2E;
+  color: #FAF9F6;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.join-submit:hover {
+  background: #C5E7E1;
+  color: #2F2E2E;
+}
+
+.form-note {
+  margin: 0;
+  color: #777672;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Таблиця повного плану */
+
+.plan-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(1180px, 100%);
+  max-height: 92vh;
+  padding: 28px;
+}
+
+.plan-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-right: 44px;
+}
+
+.plan-modal-header .inner-page-eyebrow { margin: 0 0 7px; }
+
+.plan-modal-header h2 {
+  margin: 0;
+  font-size: clamp(25px, 4vw, 38px);
+  font-weight: 300;
+}
+
+.plan-table-wrap {
+  margin-top: 22px;
+  overflow: auto;
+  border: 1px solid rgb(47 46 46 / 10%);
+  border-radius: 12px;
+}
+
+.plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.plan-table th,
+.plan-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid rgb(47 46 46 / 9%);
+  text-align: left;
+  vertical-align: top;
+}
+
+.plan-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #EAE8E0;
+  font-weight: 500;
+}
+
+.plan-table tbody tr:nth-child(even) { background: #F5F3EE; }
+.plan-table tbody tr.plan-row--free { background: #F4E1D9; }
+.plan-table tbody tr:last-child td { border-bottom: 0; }
+
+.plan-modal-footer {
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+/* ========================================
+   АДАПТИВНІСТЬ
+======================================== */
+
+@media (max-width: 900px) {
+  .calendar-page { padding-right: 4%; padding-left: 4%; }
+  .year-calendar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .session-list { grid-template-columns: 1fr; }
+  .month-slider-title { gap: 10px; }
+  .neighbor-month { max-width: 90px; font-size: 12px; }
+}
+
+@media (max-width: 760px) {
+  .site-hint {
+    top: 78px;
+    max-width: calc(100% - 28px);
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .join-button {
+    top: 15px;
+    right: 14px;
+    min-height: 38px;
+    gap: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .mindmap-header .join-button,
+  .calendar-header .join-button {
+    position: static;
+  }
+
+  .mindmap-header-actions { gap: 7px; }
+  .mindmap-page > .join-button { right: 14px; bottom: 14px; }
+  .mindmap-page .site-hint { bottom: auto; margin-top: 15px; }
+
+  .calendar-page {
+    padding: 0 18px 40px;
+    overflow: visible;
+  }
+
+  .calendar-header {
+    align-items: flex-start;
+    min-height: 76px;
+    padding: 15px 0;
+  }
+
+  .calendar-brand-row { gap: 10px; font-size: 15px; }
+  .calendar-brand { width: 70px; max-height: 36px; }
+  .calendar-header-divider { height: 27px; }
+  .calendar-header-actions { align-items: flex-end; flex-direction: column; gap: 3px; }
+  .calendar-header .join-button { min-height: 34px; padding: 6px 10px; }
+  .calendar-home-button { padding: 4px 0; font-size: 12px; }
+
+  .calendar-content { margin-top: 24px; }
+  .calendar-intro h1 { font-size: 48px; }
+  .calendar-intro > p:not(.inner-page-eyebrow) { font-size: 16px; }
+  .calendar-legend { gap: 10px 15px; }
+
+  .year-calendar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .month-tile { min-height: 140px; padding: 12px; border-radius: 16px; }
+  .month-tile-top { font-size: 16px; }
+  .month-dates { gap: 5px; margin-top: 15px; }
+  .month-date { width: 25px; height: 25px; font-size: 12px; }
+  .month-tile-bottom { font-size: 12px; }
+
+  .calendar-footer,
+  .calendar-document { align-items: flex-start; flex-direction: column; }
+  .calendar-footer { gap: 14px; }
+  .document-actions { width: 100%; }
+  .document-actions .outline-button { flex: 1; }
+
+  .month-slider-heading {
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 5px;
+  }
+
+  .slider-arrow { width: 36px; height: 36px; }
+  .month-slider-title { flex-direction: column; gap: 0; }
+  .month-slider-title h2 { font-size: 25px; }
+  .neighbor-month { max-width: 100%; padding: 3px; font-size: 11px; }
+  .session-card { padding: 13px; gap: 10px; }
+  .session-main strong { font-size: 16px; }
+
+  .month-view-footer { align-items: stretch; }
+  .month-view-footer .outline-button { flex: 1; }
+
+  .join-modal { padding: 27px 20px 22px; border-radius: 20px; }
+  .join-modal h2 { padding-right: 18px; font-size: 34px; }
+  .modal-backdrop { padding: 10px; }
+
+  .plan-modal { padding: 20px 14px; }
+  .plan-modal-header { padding-right: 32px; }
+  .plan-table { min-width: 740px; }
+  .plan-modal-footer { justify-content: stretch; }
+  .plan-modal-footer .outline-button { flex: 1; }
+}
+
+@media (max-width: 390px) {
+  .year-calendar { grid-template-columns: 1fr 1fr; }
+  .month-tile { min-height: 130px; padding: 10px; }
+  .month-tile-top { font-size: 14px; }
+  .month-date { width: 22px; height: 22px; }
+  .calendar-brand { width: 60px; }
+  .calendar-brand-row { font-size: 13px; }
+  .calendar-home-button { font-size: 11px; }
+  .document-actions { flex-direction: column; }
+  .document-actions .outline-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-hint,
+  .month-date--free {
+    animation: none;
+  }
+}
+
+/* ========================================
+   PIXELLAB — ФІНАЛЬНІ ПРАВКИ
+======================================== */
+
+/* ПІДКАЗКИ: затримка, поява справа та легке пульсування */
+
+.site-hint {
+  z-index: 35;
+  animation:
+    hint-slide-in 850ms cubic-bezier(0.2, 0.8, 0.2, 1) 5s both,
+    hint-gentle-pulse 3.8s ease-in-out 5.9s infinite;
+  will-change: opacity, translate;
+}
+
+@keyframes hint-slide-in {
+  from {
+    opacity: 0;
+    translate: 60px 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes hint-gentle-pulse {
+  0%, 100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.025;
+  }
+}
+
+/* Головна: підказка під центральною бульбашкою */
+
+.site > .site-hint {
+    position: absolute;
+    top: 100px;
+    left: auto;
+    right: 3%;
+    margin: 0;
+    translate: -50% 0;
+}
+
+/* Майндмапа: підказка внизу, поза основним кільцем бульбашок */
+
+.mindmap-page .site-hint {
+    position: fixed;
+    top: 100px;
+    left: auto;
+    bottom: auto;
+    right: 3%;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    margin: 0;
+    translate: -50% 0;
+}
+
+/* Сторінка плану: підказка не повинна перекривати заголовок */
+
+.calendar-page > .site-hint {
+  position: absolute;
+  top: auto;
+  right: 6%;
+  bottom: auto;
+  left: auto;
+  margin: 18px auto 0;
+  translate: 0 0;
+}
+
+/* Кнопка повернення в стилі кнопки майндмапи */
+
+.calendar-home-button {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgb(47 46 46 / 20%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    transform 250ms ease;
+}
+
+.calendar-home-button span {
+  font-size: 27px;
+  line-height: 1;
+  transform: rotate(225deg);
+  transition: transform 250ms ease;
+}
+
+.calendar-home-button:hover {
+  background: #2F2E2E;
+  color: #FAF9F6;
+  transform: scale(1.05);
+}
+
+.calendar-home-button:hover span {
+  transform: rotate(225deg) translateX(2px);
+}
+
+/* Заголовок і кнопки вступного блоку плану */
+
+.calendar-intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+  align-items: center;
+  gap: 40px;
+}
+
+.calendar-intro-copy {
+  min-width: 0;
+}
+
+.calendar-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.calendar-intro-actions .outline-button {
+  white-space: nowrap;
+}
+
+/* Прибираємо декоративні лінії у верхній панелі */
+
+.calendar-header {
+  border-bottom: 0;
+}
+
+.calendar-header-divider {
+  display: none;
+}
+
+/* Картки календаря — без брудно-сірого тла */
+
+.month-tile {
+  background: #FAF9F6;
+}
+
+.month-tile:hover {
+  background: #F2CCBD;
+}
+
+.month-tile--break {
+  background-color: #FAF9F6;
+  background-image:
+    radial-gradient(
+      circle at 12px 12px,
+      rgb(197 231 225 / 55%) 1.5px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 35px 35px,
+      rgb(47 46 46 / 4%) 1px,
+      transparent 2px
+    );
+}
+
+.month-tile--break:hover {
+  background-color: #F5F0E8;
+}
+
+/* Кольори занять задаються відповідно до тем майндмапи */
+
+.session-card {
+  background: var(--session-color, #C5E7E1);
+  transition:
+    background-color 250ms ease,
+    border-color 250ms ease,
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.session-card:hover {
+  box-shadow: 0 8px 22px rgb(47 46 46 / 7%);
+}
+
+.session-card--free {
+  background: #F1C5D2;
+}
+
+.session-card--free .session-date {
+  background: #F1C5D2;
+}
+
+.session-date {
+  background: color-mix(
+    in srgb,
+    var(--session-color, #C5E7E1) 70%,
+    #FAF9F6 30%
+  );
+}
+
+/* Місяць плавно змінюється при навігації */
+
+.month-view {
+  animation: month-slide-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes month-slide-in {
+  from {
+    opacity: 0;
+    translate: 22px 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Стрілки ближче до назви місяця */
+
+.month-slider-heading {
+  grid-template-columns: 36px minmax(0, auto) 36px;
+  justify-content: center;
+  gap: 8px;
+}
+
+.month-slider-title {
+  gap: 12px;
+}
+
+/* Кнопка повернення до річного календаря зверху місяця */
+
+.month-view-back {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 0 18px;
+}
+
+/* Адаптивність */
+
+@media (max-width: 900px) {
+  .calendar-intro-layout {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .calendar-intro-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .site > .site-hint {
+    top: calc(50% + 125px);
+    max-width: calc(100% - 28px);
+  }
+
+  .mindmap-page .site-hint {
+    bottom: auto;
+    top:50px;
+    max-width: calc(100% - 24px);
+    white-space: normal;
+  }
+
+  .calendar-intro-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .calendar-intro-actions .outline-button {
+    width: 100%;
+  }
+
+  .month-slider-heading {
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    gap: 4px;
+  }
+
+  .month-slider-title {
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-hint,
+  .month-view {
+    animation: none;
+  }
+}
+
+/* Відновлені стилі сайту та точкові правки плану гуртка */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+}
+.calendar-brand-row { margin-right: auto; }
+.calendar-header-actions { margin-left: auto; }
+.calendar-home-button {
+  display: grid;
+  flex: 0 0 44px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgb(47 46 46 / 20%);
+  border-radius: 50%;
+  background: transparent;
+  color: #2F2E2E;
+}
+.calendar-home-button span {
+  font-size: 25px;
+  line-height: 1;
+  transform: none;
+}
+.calendar-home-button:hover span { transform: translateX(-2px); }
+.calendar-intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+  align-items: center;
+  gap: 40px;
+}
+.calendar-intro-copy { min-width: 0; }
+.calendar-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.calendar-intro-actions .outline-button { white-space: nowrap; }
+.month-date { background: var(--session-color, #C5E7E1); }
+.session-card {
+  background: var(--session-color, #C5E7E1);
+  transition: background-color 250ms ease, border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+}
+.session-card--free { background: var(--session-color, #F1C5D2); }
+.session-card--free .session-date { background: color-mix(in srgb, var(--session-color, #F1C5D2) 70%, #FAF9F6 30%); }
+.session-date { background: color-mix(in srgb, var(--session-color, #C5E7E1) 70%, #FAF9F6 30%); }
+.month-slider-heading {
+  display: grid;
+  grid-template-columns: 40px auto 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+.month-slider-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+.month-slider-title h2 { text-align: center; }
+.month-back-button { display: inline-flex; margin: 0 0 18px; }
+@media (max-width: 900px) {
+  .calendar-intro-layout { grid-template-columns: 1fr; gap: 22px; }
+  .calendar-intro-actions { justify-content: flex-start; }
+}
+@media (max-width: 760px) {
+  .calendar-intro-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
+  .calendar-intro-actions .outline-button { width: 100%; }
+  .month-slider-heading { grid-template-columns: 34px minmax(0, auto) 34px; gap: 4px; }
+  .month-slider-title { gap: 4px; }
+  .neighbor-month { max-width: 70px; font-size: 11px; }
+}
+.month-slider-heading {
+  width: max-content;
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
